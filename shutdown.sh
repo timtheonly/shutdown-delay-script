@@ -8,10 +8,11 @@ if test $? -eq 0
 	pid=`pidof -s shutdown -h 5`
 	kill $pid
 	echo "`date +%a-%H:%M:%S-%d/%m/%y`--  kill exited with status of: $?" >> $logFile
-	RESULT=( `zenity --entry --title="Set delay" --text="Enter the number of hours you wish to delay shutdown or hit cancel to abort shutdown:"`)
+	RESULT=( `zenity --entry --title="Set delay" --text="Enter the number of hours you wish to delay shutdown by or hit cancel to abort shutdown:"`)
 	if test  -z $RESULT
 	then
 		echo "`date +%a-%H:%M:%S-%d/%m/%y` -- shutdown aborted" >> $logFile
+		echo " ">> $logFile
 		exit
 	fi
 	hour=`date +%H`
@@ -23,8 +24,10 @@ if test $? -eq 0
 		hour="$[$hour-24]"
 	fi
 	notify-send "Shutdown" "Shutdown has been delayed by $RESULT hours"
-	/sbin/shutdown -h $hour:00
+	/sbin/shutdown -h $hour:00 #need to us /sbin/shutdown due to limitations in cron
 	echo "`date +%a-%H:%M:%S-%d/%m/%y` -- shutdown set for $hour:00 " >> $logFile
+	echo " ">> $logFile
 	exit
 fi
 echo "`date +%a-%H:%M:%S-%d/%m/%y` -- user choose to allow shutdown" >> $logFile
+echo " ">> $logFile
