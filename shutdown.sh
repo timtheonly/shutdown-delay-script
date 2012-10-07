@@ -24,7 +24,7 @@ if test $? -eq 0
 		hour="$[$hour-24]"
 	fi
 	notify-send "Shutdown" "Shutdown has been delayed by $RESULT hours"
-	/sbin/shutdown -h $hour:00 #need to us /sbin/shutdown due to limitations in cron
+	/sbin/shutdown -h $hour:00 & #need to us /sbin/shutdown due to limitations in cron
 	echo "`date +%a-%H:%M:%S-%d/%m/%y` -- shutdown set for $hour:00 " >> $logFile
 	echo " ">> $logFile
 	exit
