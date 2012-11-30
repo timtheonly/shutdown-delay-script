@@ -17,12 +17,7 @@ if test $? -eq 0
 	fi
 	hour=`date +%H`
 	let hour=$hour+$RESULT
-	#add hour to exclude current hour
-	hour="$[hour+1]"
-	if test $hour -ge 23
-	then
-		hour="$[$hour-24]"
-	fi
+	$RESULT=$(($RESULT%24))
 	notify-send "Shutdown" "Shutdown has been delayed by $RESULT hours"
 	/sbin/shutdown -h $hour:00 & #need to us /sbin/shutdown due to limitations in cron
 	echo "`date +%a-%H:%M:%S-%d/%m/%y` -- shutdown set for $hour:00 " >> $logFile
