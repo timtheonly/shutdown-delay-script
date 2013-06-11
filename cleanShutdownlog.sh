@@ -1,5 +1,5 @@
 #! /bin/bash
-logFile=/home/hogan/shutdown.log
+logFile=~/shutdown.log
 if [ $# -gt 0 ]
 then 
 	if [ $1 =  "clean" ]
