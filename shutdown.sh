@@ -1,5 +1,5 @@
 #!  /bin/bash
-logFile=/home/hogan/shutdown.log
+logFile=~/shutdown.log
 echo "`date +%a-%H:%M:%S-%d/%m/%y` -- script run" >> $logFile
 zenity --question --title="System Shutdown" --text="System will shutdown at  $1:00 !\nDelay shutdown ? "
 if test $? -eq 0
